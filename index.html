@@ -1,0 +1,2178 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#090b10">
+  <meta name="description" content="Sebuah halaman penuh cinta untuk Sayang, diiringi lagu Bertaut - Nadin Amizah.">
+  <title>FOR BEBEEEEE ♡ — Seperti Detak Jantung yang Bertaut</title>
+
+  <!-- Google Fonts: Playfair Display (Serif Elegan) & Plus Jakarta Sans (Modern) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap"
+    rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #090b10;
+      --bg-gradient: radial-gradient(circle at 50% 0%, #151a2d 0%, #090b10 70%);
+      --surface: rgba(18, 23, 37, 0.75);
+      --surface-card: rgba(23, 30, 49, 0.65);
+      --surface-hover: rgba(30, 40, 66, 0.85);
+      --surface-border: rgba(220, 210, 255, 0.12);
+      --surface-glow: rgba(255, 120, 160, 0.15);
+
+      --text: #f5f6fb;
+      --text-muted: #9aa2ba;
+      --text-dim: #6d758d;
+
+      --accent-rose: #ff758f;
+      --accent-pink: #f472b6;
+      --accent-lavender: #c084fc;
+      --accent-gold: #fde047;
+      --accent-soft: rgba(255, 117, 143, 0.15);
+
+      --radius-sm: 12px;
+      --radius-md: 20px;
+      --radius-lg: 32px;
+      --radius-full: 9999px;
+
+      --shadow-subtle: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+      --shadow-glow: 0 0 35px -5px rgba(255, 117, 143, 0.35);
+      --shadow-card: 0 20px 40px -15px rgba(0, 0, 0, 0.7);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 85px;
+    }
+
+    body {
+      background-color: var(--bg);
+      background-image: var(--bg-gradient);
+      color: var(--text);
+      font-family: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      line-height: 1.7;
+      overflow-x: hidden;
+      min-height: 100vh;
+      position: relative;
+    }
+
+    /* Ambient Canvas for Floating Hearts & Stars */
+    #ambientCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.65;
+    }
+
+    /* Typography */
+    h1,
+    h2,
+    h3,
+    .serif {
+      font-family: 'Playfair Display', Georgia, serif;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* Navigation Bar */
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 16px clamp(20px, 5vw, 64px);
+      background: rgba(9, 11, 16, 0.82);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--surface-border);
+      transition: all 0.3s ease;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      font-size: 1.12rem;
+      letter-spacing: 0.5px;
+    }
+
+    .brand-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent-rose), var(--accent-lavender));
+      color: #fff;
+      font-size: 0.95rem;
+      box-shadow: 0 0 16px rgba(255, 117, 143, 0.5);
+      animation: heartbeat 2s infinite ease-in-out;
+    }
+
+    @keyframes heartbeat {
+
+      0%,
+      100% {
+        transform: scale(1);
+      }
+
+      14% {
+        transform: scale(1.15);
+      }
+
+      28% {
+        transform: scale(1);
+      }
+
+      42% {
+        transform: scale(1.1);
+      }
+
+      70% {
+        transform: scale(1);
+      }
+    }
+
+    .brand span {
+      background: linear-gradient(120deg, #ffffff 30%, var(--accent-rose));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: clamp(12px, 2.5vw, 28px);
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--text-muted);
+    }
+
+    .nav-links a {
+      transition: color 0.2s ease;
+      position: relative;
+    }
+
+    .nav-links a:hover {
+      color: var(--text);
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--accent-rose);
+      transition: width 0.25s ease;
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    /* Floating / Header Mini Music Widget */
+    .nav-music-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 6px 14px;
+      border-radius: var(--radius-full);
+      background: rgba(255, 117, 143, 0.12);
+      border: 1px solid rgba(255, 117, 143, 0.28);
+      color: #ffd6e0;
+      font-size: 0.82rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+
+    .nav-music-pill:hover {
+      background: rgba(255, 117, 143, 0.22);
+      border-color: var(--accent-rose);
+      transform: translateY(-1px);
+    }
+
+    .music-disc {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      border: 2px solid var(--accent-rose);
+      border-top-color: transparent;
+      transition: transform 0.3s;
+    }
+
+    .music-disc.playing {
+      animation: spin 2s linear infinite;
+    }
+
+    @keyframes spin {
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    /* Main Container */
+    main {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Section Global */
+    section {
+      padding: clamp(60px, 8vw, 110px) clamp(20px, 5vw, 70px);
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 6px 14px;
+      border-radius: var(--radius-full);
+      background: rgba(255, 117, 143, 0.1);
+      border: 1px solid rgba(255, 117, 143, 0.25);
+      color: var(--accent-rose);
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+
+    .section-head {
+      text-align: center;
+      max-width: 720px;
+      margin: 0 auto clamp(36px, 5vw, 60px);
+    }
+
+    .section-head h2 {
+      font-size: clamp(2.1rem, 4.8vw, 3.4rem);
+      font-weight: 600;
+      line-height: 1.15;
+      margin-bottom: 12px;
+      letter-spacing: -0.5px;
+    }
+
+    .section-head p {
+      color: var(--text-muted);
+      font-size: clamp(0.96rem, 1.8vw, 1.1rem);
+    }
+
+    /* Hero Section */
+    .hero {
+      min-height: calc(88vh - 70px);
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      align-items: center;
+      gap: clamp(30px, 6vw, 70px);
+      padding-top: clamp(40px, 6vw, 70px);
+      padding-bottom: clamp(60px, 8vw, 100px);
+    }
+
+    .hero-content {
+      text-align: left;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.8rem, 6.2vw, 4.8rem);
+      line-height: 1.1;
+      margin: 14px 0 20px;
+      letter-spacing: -1.5px;
+    }
+
+    .hero h1 .glow {
+      background: linear-gradient(135deg, #ffffff 20%, #ff85a2 65%, #c084fc 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 35px rgba(255, 133, 162, 0.3);
+    }
+
+    .hero p.lead {
+      color: #b5bdd3;
+      font-size: clamp(1.05rem, 2vw, 1.22rem);
+      margin-bottom: 30px;
+      max-width: 540px;
+      line-height: 1.8;
+    }
+
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 13px 26px;
+      border-radius: var(--radius-full);
+      font-size: 0.95rem;
+      font-weight: 600;
+      border: 1px solid var(--surface-border);
+      background: var(--surface);
+      color: var(--text);
+      cursor: pointer;
+      transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: var(--shadow-subtle);
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+      border-color: rgba(255, 117, 143, 0.4);
+      background: var(--surface-hover);
+    }
+
+    .btn:active {
+      transform: translateY(-1px);
+    }
+
+    .btn.primary {
+      background: linear-gradient(135deg, #ff758f, #e056fd);
+      color: #ffffff;
+      border: none;
+      box-shadow: 0 10px 25px -5px rgba(255, 117, 143, 0.5);
+    }
+
+    .btn.primary:hover {
+      box-shadow: 0 15px 35px -5px rgba(255, 117, 143, 0.7);
+      filter: brightness(1.08);
+    }
+
+    /* Hero Visual: Layered Glass Photo Cards */
+    .hero-visual {
+      position: relative;
+      width: 100%;
+      height: 480px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .photo-card-wrap {
+      position: absolute;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      background: var(--surface-card);
+      box-shadow: var(--shadow-card);
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      cursor: pointer;
+    }
+
+    .photo-card-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.6s ease;
+    }
+
+    .photo-card-wrap:hover img {
+      transform: scale(1.06);
+    }
+
+    /* Main Portrait Card (Bunga Malam) */
+    .photo-card-main {
+      width: 290px;
+      height: 410px;
+      z-index: 3;
+      transform: rotate(-2deg);
+    }
+
+    .photo-card-main img {
+      object-position: center 20%;
+    }
+
+    .photo-card-main:hover {
+      transform: rotate(0deg) scale(1.03);
+      z-index: 5;
+      box-shadow: 0 25px 50px -10px rgba(255, 117, 143, 0.35);
+    }
+
+    /* Floating Secondary Card (Boneka) */
+    .photo-card-sub {
+      width: 250px;
+      height: 220px;
+      bottom: 10px;
+      right: 0;
+      z-index: 4;
+      transform: rotate(5deg);
+    }
+
+    .photo-card-sub img {
+      object-position: center 30%;
+    }
+
+    .photo-card-sub:hover {
+      transform: rotate(1deg) scale(1.05);
+      z-index: 6;
+      box-shadow: 0 20px 45px -10px rgba(192, 132, 252, 0.4);
+    }
+
+    /* Floating Badge on Card */
+    .photo-card-caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 14px 16px;
+      background: linear-gradient(to top, rgba(9, 11, 16, 0.95), rgba(9, 11, 16, 0.2) 75%, transparent);
+      backdrop-filter: blur(8px);
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: #fff;
+    }
+
+    .photo-card-caption span {
+      display: block;
+      font-size: 0.74rem;
+      color: var(--accent-rose);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    /* Ambient Hero Glow */
+    .hero-glow-blob {
+      position: absolute;
+      width: 320px;
+      height: 320px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255, 117, 143, 0.22) 0%, rgba(192, 132, 252, 0.12) 50%, transparent 70%);
+      filter: blur(45px);
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    /* Music Player Sticky Dock (Bertaut - Nadin Amizah) */
+    .music-dock {
+      background: rgba(18, 23, 38, 0.85);
+      border: 1px solid rgba(255, 117, 143, 0.25);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-radius: var(--radius-md);
+      padding: 16px 22px;
+      box-shadow: 0 15px 40px -10px rgba(0, 0, 0, 0.6), 0 0 25px -5px rgba(255, 117, 143, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-top: 15px;
+    }
+
+    .song-info {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .song-disc-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #1f273d, #0d111a);
+      border: 2px solid var(--accent-rose);
+      display: grid;
+      place-items: center;
+      position: relative;
+      box-shadow: 0 0 15px rgba(255, 117, 143, 0.35);
+    }
+
+    .song-disc-icon::after {
+      content: '';
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--bg);
+      border: 2px solid var(--accent-rose);
+    }
+
+    .song-disc-icon.playing {
+      animation: spin 3s linear infinite;
+    }
+
+    .song-text strong {
+      display: block;
+      font-size: 0.98rem;
+      color: #fff;
+    }
+
+    .song-text small {
+      color: var(--accent-rose);
+      font-size: 0.8rem;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .soundwave-bars {
+      display: flex;
+      align-items: flex-end;
+      gap: 3px;
+      height: 14px;
+    }
+
+    .soundwave-bars span {
+      width: 3px;
+      height: 4px;
+      background: var(--accent-rose);
+      border-radius: 2px;
+      transition: height 0.2s ease;
+    }
+
+    .soundwave-bars.active span:nth-child(1) {
+      animation: wave 0.8s infinite ease-in-out;
+    }
+
+    .soundwave-bars.active span:nth-child(2) {
+      animation: wave 0.6s infinite ease-in-out 0.2s;
+    }
+
+    .soundwave-bars.active span:nth-child(3) {
+      animation: wave 0.9s infinite ease-in-out 0.4s;
+    }
+
+    .soundwave-bars.active span:nth-child(4) {
+      animation: wave 0.7s infinite ease-in-out 0.1s;
+    }
+
+    @keyframes wave {
+
+      0%,
+      100% {
+        height: 4px;
+      }
+
+      50% {
+        height: 16px;
+      }
+    }
+
+    .player-controls {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .play-btn {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: none;
+      background: linear-gradient(135deg, var(--accent-rose), var(--accent-lavender));
+      color: #fff;
+      font-size: 1.1rem;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(255, 117, 143, 0.4);
+      transition: all 0.2s ease;
+    }
+
+    .play-btn:hover {
+      transform: scale(1.08);
+      box-shadow: 0 6px 20px rgba(255, 117, 143, 0.6);
+    }
+
+    .upload-mp3-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 9px 16px;
+      border-radius: var(--radius-full);
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      color: #ffd6e0;
+      font-size: 0.8rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.22s ease;
+      white-space: nowrap;
+    }
+
+    .upload-mp3-btn:hover {
+      background: rgba(255, 117, 143, 0.22);
+      border-color: var(--accent-rose);
+      color: #ffffff;
+      transform: translateY(-1px);
+    }
+
+    /* Section 1: Childhood Flashback */
+    .childhood-section {
+      position: relative;
+    }
+
+    .childhood-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: clamp(24px, 4vw, 44px);
+      align-items: stretch;
+    }
+
+    .polaroid-card {
+      background: #151a29;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: var(--radius-md);
+      padding: 18px 18px 24px;
+      box-shadow: var(--shadow-card);
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      cursor: pointer;
+    }
+
+    .polaroid-card:hover {
+      transform: translateY(-8px) scale(1.01);
+      box-shadow: 0 25px 45px -10px rgba(0, 0, 0, 0.8), 0 0 20px -5px rgba(255, 117, 143, 0.25);
+    }
+
+    .polaroid-pin {
+      position: absolute;
+      top: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 24px;
+      height: 10px;
+      background: rgba(255, 117, 143, 0.7);
+      border-radius: 2px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    .polaroid-img-box {
+      width: 100%;
+      height: 340px;
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      background: #0d101a;
+      margin-bottom: 18px;
+    }
+
+    .polaroid-img-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+
+    .polaroid-img-kelapa {
+      object-position: center 25%;
+    }
+
+    .polaroid-img-merah {
+      object-position: center 15%;
+    }
+
+    .polaroid-card:hover .polaroid-img-box img {
+      transform: scale(1.05);
+    }
+
+    .polaroid-story h3 {
+      font-size: 1.45rem;
+      margin-bottom: 8px;
+      color: #fff;
+    }
+
+    .polaroid-story p {
+      color: var(--text-muted);
+      font-size: 0.94rem;
+      line-height: 1.7;
+    }
+
+    .polaroid-story .tag {
+      display: inline-block;
+      margin-top: 10px;
+      font-size: 0.78rem;
+      color: var(--accent-rose);
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+
+    /* Section 2: Couple Memory Gallery */
+    .memories-section {
+      background: linear-gradient(180deg, transparent, rgba(16, 21, 35, 0.5) 40%, rgba(16, 21, 35, 0.5) 80%, transparent);
+      border-radius: var(--radius-lg);
+    }
+
+    .memories-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .memory-card {
+      background: var(--surface-card);
+      border: 1px solid var(--surface-border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      box-shadow: var(--shadow-card);
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      flex-direction: column;
+      cursor: pointer;
+    }
+
+    .memory-card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(255, 117, 143, 0.35);
+      box-shadow: 0 25px 45px -10px rgba(0, 0, 0, 0.8), 0 0 25px -5px rgba(255, 117, 143, 0.2);
+    }
+
+    .memory-img-wrap {
+      width: 100%;
+      height: 280px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .memory-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+
+    .memory-img-bunga {
+      object-position: center 25%;
+    }
+
+    .memory-img-kebun {
+      object-position: center 20%;
+    }
+
+    .memory-img-boneka {
+      object-position: center 30%;
+    }
+
+    .memory-card:hover .memory-img-wrap img {
+      transform: scale(1.08);
+    }
+
+    .memory-badge {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      padding: 5px 12px;
+      border-radius: var(--radius-full);
+      background: rgba(9, 11, 16, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(8px);
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #ffd6e0;
+    }
+
+    .memory-body {
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .memory-body h3 {
+      font-size: 1.35rem;
+      margin-bottom: 8px;
+      color: #fff;
+    }
+
+    .memory-body p {
+      color: var(--text-muted);
+      font-size: 0.92rem;
+      line-height: 1.65;
+      margin-bottom: 14px;
+    }
+
+    .memory-footer {
+      margin-top: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.8rem;
+      color: var(--text-dim);
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      padding-top: 12px;
+    }
+
+    .memory-footer span {
+      color: var(--accent-rose);
+      font-weight: 500;
+    }
+
+    /* Section 3: Lyrics & Reflection "Bertaut" */
+    .lyrics-card {
+      background: radial-gradient(ellipse at center, rgba(30, 25, 45, 0.8) 0%, rgba(14, 18, 29, 0.9) 100%);
+      border: 1px solid rgba(255, 117, 143, 0.28);
+      border-radius: var(--radius-lg);
+      padding: clamp(32px, 6vw, 64px);
+      text-align: center;
+      box-shadow: 0 20px 50px -10px rgba(0, 0, 0, 0.7), 0 0 40px -10px rgba(255, 117, 143, 0.18);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .quote-mark {
+      font-family: 'Playfair Display', serif;
+      font-size: 5rem;
+      line-height: 1;
+      color: rgba(255, 117, 143, 0.2);
+      display: block;
+      margin-bottom: -20px;
+    }
+
+    .lyrics-quote {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.4rem, 3.2vw, 2.2rem);
+      font-style: italic;
+      color: #ffffff;
+      line-height: 1.5;
+      margin-bottom: 24px;
+      text-shadow: 0 0 20px rgba(255, 117, 143, 0.3);
+    }
+
+    .lyrics-quote span.highlight {
+      color: var(--accent-rose);
+      font-weight: 600;
+    }
+
+    .lyrics-meaning {
+      max-width: 680px;
+      margin: 0 auto;
+      color: #c4cde3;
+      font-size: 1.05rem;
+      line-height: 1.85;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: 24px;
+    }
+
+    /* Section 4: Love Letter */
+    .letter-section {
+      position: relative;
+    }
+
+    .letter-card {
+      max-width: 820px;
+      margin: 0 auto;
+      background: linear-gradient(145deg, rgba(23, 29, 46, 0.9), rgba(16, 20, 32, 0.95));
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: var(--radius-lg);
+      padding: clamp(30px, 6vw, 56px);
+      box-shadow: var(--shadow-card);
+      position: relative;
+    }
+
+    .letter-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 10%;
+      right: 10%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--accent-rose), transparent);
+    }
+
+    .letter-salutation {
+      font-size: 1.45rem;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .letter-body p {
+      color: #c9d2e7;
+      font-size: clamp(1rem, 1.8vw, 1.08rem);
+      line-height: 1.9;
+      margin-bottom: 18px;
+    }
+
+    .letter-highlight {
+      background: rgba(255, 117, 143, 0.08);
+      border-left: 3px solid var(--accent-rose);
+      padding: 16px 20px;
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      color: #fce7f3 !important;
+      font-style: italic;
+      margin: 24px 0 !important;
+    }
+
+    .letter-signature {
+      margin-top: 32px;
+      text-align: right;
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.55rem;
+      color: var(--accent-rose);
+    }
+
+    /* Secret Surprise Drawer */
+    .surprise-box {
+      margin-top: 28px;
+      text-align: center;
+    }
+
+    .secret-content {
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      transition: all 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+      background: linear-gradient(135deg, rgba(35, 25, 50, 0.8), rgba(20, 25, 42, 0.9));
+      border: 1px solid rgba(255, 117, 143, 0.3);
+      border-radius: var(--radius-md);
+      margin-top: 18px;
+      text-align: left;
+      padding: 0 24px;
+    }
+
+    .secret-content.open {
+      max-height: 500px;
+      opacity: 1;
+      padding: 24px;
+    }
+
+    .secret-content h4 {
+      color: var(--accent-rose);
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .secret-content p {
+      color: #e2e8f0;
+      font-size: 0.98rem;
+      line-height: 1.8;
+      margin-bottom: 10px;
+    }
+
+    /* Section 5: Ending & Interactive Heart Explosion */
+    .ending-section {
+      text-align: center;
+      padding-top: clamp(40px, 6vw, 80px);
+      padding-bottom: clamp(60px, 9vw, 120px);
+      position: relative;
+    }
+
+    .ending-section h2 {
+      font-size: clamp(2.4rem, 6vw, 4.2rem);
+      margin-bottom: 16px;
+      letter-spacing: -1px;
+    }
+
+    .ending-section p {
+      max-width: 580px;
+      margin: 0 auto 32px;
+      color: var(--text-muted);
+      font-size: 1.1rem;
+    }
+
+    .heart-button-wrapper {
+      position: relative;
+      display: inline-block;
+    }
+
+    .btn-explode {
+      padding: 16px 36px;
+      font-size: 1.1rem;
+      border-radius: var(--radius-full);
+      background: linear-gradient(135deg, #ff758f, #f43f5e, #c084fc);
+      background-size: 200% 200%;
+      animation: gradientShift 4s ease infinite;
+      color: white;
+      border: none;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 10px 30px rgba(255, 117, 143, 0.5);
+      transition: all 0.25s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    @keyframes gradientShift {
+      0% {
+        background-position: 0% 50%;
+      }
+
+      50% {
+        background-position: 100% 50%;
+      }
+
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+    .btn-explode:hover {
+      transform: translateY(-4px) scale(1.04);
+      box-shadow: 0 16px 40px rgba(255, 117, 143, 0.7);
+    }
+
+    .btn-explode:active {
+      transform: translateY(-1px) scale(0.98);
+    }
+
+    .love-counter {
+      margin-top: 18px;
+      font-size: 1.05rem;
+      color: #ffd6e0;
+      min-height: 28px;
+      font-weight: 500;
+      transition: all 0.2s ease;
+    }
+
+    /* Lightbox Modal */
+    .lightbox-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(5, 7, 12, 0.94);
+      backdrop-filter: blur(20px);
+      z-index: 2000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .lightbox-modal.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .lightbox-content {
+      max-width: 900px;
+      max-height: 85vh;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .lightbox-content img {
+      max-width: 100%;
+      max-height: 75vh;
+      object-fit: contain;
+      border-radius: var(--radius-sm);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.9);
+    }
+
+    .lightbox-caption {
+      margin-top: 16px;
+      color: #f1f5f9;
+      font-size: 1rem;
+      text-align: center;
+      font-weight: 500;
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: -46px;
+      right: 0;
+      background: rgba(255, 255, 255, 0.15);
+      border: none;
+      color: #fff;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      font-size: 1.2rem;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .lightbox-close:hover {
+      background: var(--accent-rose);
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--surface-border);
+      padding: 34px 20px;
+      text-align: center;
+      color: var(--text-dim);
+      font-size: 0.9rem;
+      background: rgba(9, 11, 16, 0.95);
+      position: relative;
+      z-index: 10;
+    }
+
+    footer p {
+      margin-bottom: 6px;
+    }
+
+    footer .heart-glow {
+      color: var(--accent-rose);
+      display: inline-block;
+      animation: heartbeat 2s infinite ease-in-out;
+    }
+
+    /* Responsive Queries */
+    @media (max-width: 900px) {
+      .hero {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 40px;
+      }
+
+      .hero-content {
+        text-align: center;
+      }
+
+      .hero p.lead {
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .hero-actions {
+        justify-content: center;
+      }
+
+      .hero-visual {
+        height: 380px;
+      }
+
+      .photo-card-main {
+        width: 240px;
+        height: 330px;
+      }
+
+      .photo-card-sub {
+        width: 190px;
+        height: 160px;
+      }
+
+      .childhood-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .memories-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .navbar {
+        padding: 12px 18px;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .music-dock {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .player-controls {
+        width: 100%;
+        justify-content: space-between;
+      }
+    }
+
+    /* Mobile QR Modal */
+    .nav-mobile-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      border-radius: var(--radius-full);
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      color: #fff;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+
+    .nav-mobile-btn:hover {
+      background: rgba(255, 117, 143, 0.25);
+      border-color: var(--accent-rose);
+      transform: translateY(-1px);
+    }
+
+    .qr-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(6, 8, 14, 0.92);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      z-index: 2500;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .qr-modal.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .qr-content {
+      background: #141928;
+      border: 1px solid rgba(255, 117, 143, 0.35);
+      border-radius: var(--radius-md);
+      padding: 32px 28px;
+      max-width: 420px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 35px rgba(255, 117, 143, 0.2);
+      position: relative;
+    }
+
+    .qr-content h3 {
+      font-size: 1.4rem;
+      margin-bottom: 10px;
+      color: #fff;
+    }
+
+    .qr-content p {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      line-height: 1.6;
+      margin-bottom: 18px;
+    }
+
+    .qr-box {
+      background: #fff;
+      padding: 12px;
+      border-radius: var(--radius-sm);
+      display: inline-block;
+      margin-bottom: 16px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+    }
+
+    .qr-box img {
+      display: block;
+      width: 200px;
+      height: 200px;
+    }
+
+    .qr-url-box {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px dashed rgba(255, 255, 255, 0.2);
+      padding: 10px 14px;
+      border-radius: 8px;
+      margin-bottom: 14px;
+    }
+
+    .qr-url-box small {
+      display: block;
+      color: var(--text-dim);
+      margin-bottom: 4px;
+      font-size: 0.76rem;
+    }
+
+    .qr-url-box code {
+      color: var(--accent-gold);
+      font-size: 1.05rem;
+      font-weight: 700;
+      user-select: all;
+    }
+
+    .qr-online-tip {
+      font-size: 0.82rem !important;
+      color: #ffd6e0 !important;
+      margin-bottom: 0 !important;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Background Animated Canvas (Hearts & Stars) -->
+  <canvas id="ambientCanvas"></canvas>
+
+  <!-- Top Navigation -->
+  <header class="navbar">
+    <a class="brand" href="#home">
+      <div class="brand-icon">♡</div>
+      <span>Bertaut Untuk Cowokku ♡</span>
+    </a>
+
+    <nav class="nav-links" aria-label="Navigasi Utama">
+      <a href="#masakecil">Masa Kecil</a>
+      <a href="#kenangan">Kenangan</a>
+      <a href="#bertaut">Lagu Bertaut</a>
+      <a href="#surat">Surat Cinta</a>
+    </nav>
+
+    <div style="display:flex; align-items:center; gap:10px;">
+      <button class="nav-mobile-btn" onclick="openQrModal()" type="button" title="Buka di HP Android">
+        <span>📱</span> Buka di HP
+      </button>
+
+      <div class="nav-music-pill" id="navMusicToggle" title="Klik untuk putar / jeda musik Bertaut">
+        <div class="music-disc" id="navDisc"></div>
+        <span id="navMusicText">♫ Putar Bertaut</span>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+      <div class="hero-content">
+        <div class="section-badge">✦ SPESIAL DARI CEWEKMU DENGAN CINTA ✦</div>
+        <h1>Untuk <span class="glow">Cowok Hebatku</span> ♡</h1>
+        <p class="lead">
+          Di antara miliaran manusia di dunia, aku bersyukur semesta menuntunku ke kamu. Terima kasih sudah jadi cowok yang selalu sabar, penyayang, dan jadi tempat paling nyaman untuk hatiku bertaut.
+        </p>
+
+        <div class="hero-actions">
+          <button class="btn primary" id="heroPlayBtn" type="button">
+            <span>♫</span> Dengarkan Lagu Bertaut
+          </button>
+          <a class="btn" href="#surat">
+            <span>💌</span> Baca Surat Cinta
+          </a>
+        </div>
+
+        <!-- Music Controller Bar -->
+        <div class="music-dock">
+          <div class="song-info">
+            <div class="song-disc-icon" id="mainDisc"></div>
+            <div class="song-text">
+              <strong>Bertaut — Nadin Amizah</strong>
+              <small>
+                <div class="soundwave-bars" id="soundwave">
+                  <span></span><span></span><span></span><span></span>
+                </div>
+                <span id="musicStatus">Klik putar untuk mengalunkan nada piano ♡</span>
+              </small>
+            </div>
+          </div>
+          <div class="player-controls">
+            <button class="play-btn" id="playToggleBtn" type="button" aria-label="Play or Pause">
+              ▶
+            </button>
+            <label class="upload-mp3-btn" title="Punya file lagu Bertaut MP3 sendiri? Klik untuk memutar file kamu">
+              <input type="file" id="mp3FileInput" accept="audio/*" style="display:none">
+              <span>📁</span> Pilih MP3 (Opsional)
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Hero Visual Showcase with Couple Photos -->
+      <div class="hero-visual">
+        <div class="hero-glow-blob"></div>
+
+        <!-- Main Photo: Malam Spesial Bawa Bunga -->
+        <div class="photo-card-wrap photo-card-main"
+          onclick="openLightbox('images/foto3.jpg', 'Buket Bunga & Genggaman Hangatmu — Malam saat kamu bikin aku jadi cewek paling bahagia.')">
+          <img src="images/foto3.jpg" alt="Foto pasangan berdua membawa buket bunga di malam hari">
+          <div class="photo-card-caption">
+            <span>Momen Spesial</span>
+            Bunga & Genggaman Hangatmu ♡
+          </div>
+        </div>
+
+        <!-- Sub Photo: Bersama Boneka -->
+        <div class="photo-card-wrap photo-card-sub"
+          onclick="openLightbox('images/foto1.jpg', 'Momen Lucu Bersama Boneka — Tawa lepas kita berdua yang selalu kurindukan.')">
+          <img src="images/foto1.jpg" alt="Foto selfie berdua memegang boneka beruang">
+          <div class="photo-card-caption">
+            <span>Peluk Hangat</span>
+            Tawa Kita Berdua ✨
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 1: Childhood Memories (Masa Kecil) -->
+    <section class="childhood-section" id="masakecil">
+      <div class="section-head">
+        <div class="section-badge">✦ BOCIL KESAYANGAN ✦</div>
+        <h2>Sebelum Semesta Mempertemukan Kita</h2>
+        <p>Jauh sebelum kisah kita dimulai, ada bocil lucu yang tumbuh dengan segala kepolosannya. Siapa sangka, bocil inilah yang sekarang tumbuh jadi cowok hebat kebanggaanku!</p>
+      </div>
+
+      <div class="childhood-grid">
+        <!-- Foto 4: Makan Kelapa -->
+        <div class="polaroid-card"
+          onclick="openLightbox('images/foto4.jpg', 'Masa Kecil Cowokku — Si kecil penikmat kelapa muda yang super gemas!')">
+          <div class="polaroid-pin"></div>
+          <div class="polaroid-img-box">
+            <img class="polaroid-img-kelapa" src="images/foto4.jpg" alt="Foto masa kecil cowok makan kelapa muda di kebun">
+          </div>
+          <div class="polaroid-story">
+            <span class="tag">BOCIL KESAYANGAN 01</span>
+            <h3>Si Kecil Penikmat Kelapa 🥥</h3>
+            <p>Lucu banget ngeliat foto masa kecil kamu, duduk polos di rumput kebun sambil nikmatin kelapa muda. Dari kecil aja udah gemesin, pantas gedenya jadi cowok yang selalu bikin aku jatuh cinta.</p>
+          </div>
+        </div>
+
+        <!-- Foto 5: Anak Kembar / Bersaudara Baju Merah -->
+        <div class="polaroid-card"
+          onclick="openLightbox('images/foto5.jpg', 'Masa Kecil Cowokku — Senyum manis berdua berbaju merah kembar.')">
+          <div class="polaroid-pin"></div>
+          <div class="polaroid-img-box">
+            <img class="polaroid-img-merah" src="images/foto5.jpg" alt="Foto masa kecil berdua memakai baju merah kembar">
+          </div>
+          <div class="polaroid-story">
+            <span class="tag">BOCIL KESAYANGAN 02</span>
+            <h3>Senyum Manis yang Nggak Berubah</h3>
+            <p>Baju merah kembar dan senyum manis yang khas! Senang banget bisa lihat jejak langkahmu waktu kecil. Terima kasih sudah tumbuh dengan baik dan jadi cowok terbaik buat aku hari ini.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 2: Couple Memory Gallery -->
+    <section class="memories-section" id="kenangan">
+      <div class="section-head">
+        <div class="section-badge">✦ KISAH KITA BERDUA ✦</div>
+        <h2>Setiap Detik Bersamamu Itu Berarti</h2>
+        <p>Setiap foto menyimpan detik-detik berharga. Dari buket bunga manis yang kamu berikan, sejuknya kebun teh, hingga tawa geli meluk boneka bareng.</p>
+      </div>
+
+      <div class="memories-grid">
+        <!-- Card 1: Foto Bunga Malam -->
+        <div class="memory-card"
+          onclick="openLightbox('images/foto3.jpg', 'Bunga Cantik & Genggaman Eratmu — Kamu selalu tahu cara memperlakukanku seperti seorang putri.')">
+          <div class="memory-img-wrap">
+            <img class="memory-img-bunga" src="images/foto3.jpg" alt="Foto pasangan di depan jendela malam hari membawa buket bunga">
+            <div class="memory-badge">Malam Spesial 💐</div>
+          </div>
+          <div class="memory-body">
+            <h3>Bunga Cantik & Genggamanmu</h3>
+            <p>Malam saat kamu memberikanku buket bunga ini dan menggenggam tanganku erat. Di sampingmu, aku selalu merasa jadi cewek paling beruntung dan paling disayang di dunia.</p>
+            <div class="memory-footer">
+              <span>📍 Kenangan Berdua</span>
+              <span>Klik untuk perbesar ✦</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 2: Foto Kebun Teh -->
+        <div class="memory-card"
+          onclick="openLightbox('images/foto2.jpg', 'Bahu Untuk Cowok Manjaku — Selalu suka saat kamu bersandar dan jadi dirimu sendiri.')">
+          <div class="memory-img-wrap">
+            <img class="memory-img-kebun" src="images/foto2.jpg" alt="Foto selfie di kebun teh, cowok bersandar di bahu cewek">
+            <div class="memory-badge">Tempat Bersandar 🍃</div>
+          </div>
+          <div class="memory-body">
+            <h3>Bahu Buat Cowok Manjaku</h3>
+            <p>Di tengah sejuknya hamparan kebun teh, kepalamu bersandar manja di bahuku. Walau di depan orang lain kamu kelihatan cool dan tangguh, aslinya kamu semanja dan selucu ini kalau lagi berdua denganku.</p>
+            <div class="memory-footer">
+              <span>📍 Liburan Kita</span>
+              <span>Klik untuk perbesar ✦</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 3: Foto Boneka -->
+        <div class="memory-card"
+          onclick="openLightbox('images/foto1.jpg', 'Tawa, Canda, dan Boneka — Momen pelukan hangat yang selalu bikin nyaman.')">
+          <div class="memory-img-wrap">
+            <img class="memory-img-boneka" src="images/foto1.jpg" alt="Foto selfie pasangan memeluk boneka teddy bear">
+            <div class="memory-badge">Momen Manis 🧸</div>
+          </div>
+          <div class="memory-body">
+            <h3>Tawa, Canda, dan Boneka</h3>
+            <p>Foto konyol kita berdua meluk boneka beruang. Nggak ada yang bisa bikin aku tertawa lepas selain kamu. Bersamamu, hal yang paling sederhana pun selalu terasa begitu istimewa.</p>
+            <div class="memory-footer">
+              <span>📍 Momen Lucu Kita</span>
+              <span>Klik untuk perbesar ✦</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 3: Lagu Bertaut - Nadin Amizah -->
+    <section id="bertaut">
+      <div class="lyrics-card">
+        <span class="quote-mark">“</span>
+        <div class="lyrics-quote">
+          “Keras kepalaku sama denganmu, caraku marah, caraku tersenyum...<br>
+          <span class="highlight">Seperti detak jantung yang bertaut, nyawaku nyala kar'na denganmu.</span>”
+        </div>
+        <div class="lyrics-meaning">
+          Lagu <strong>Bertaut</strong> dari Nadin Amizah ini aku persembahkan khusus buat kamu, sayang. Kita berdua mungkin punya sifat dan keras kepala masing-masing, tapi justru karena itulah detak jantung kita selalu bertaut. Nyawaku selalu lebih bersemangat karena ada kamu yang selalu menemani, menjaga, dan menyemangati hariku. ♡
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 4: Love Letter -->
+    <section class="letter-section" id="surat">
+      <div class="section-head">
+        <div class="section-badge">✦ TULISAN DARI CEWEKMU ✦</div>
+        <h2>Surat Kecil Untuk Cowok Hebatku</h2>
+        <p>Mungkin aku cerewet atau sering ngambek, tapi perasaanku ke kamu selalu tulus dan mendalam.</p>
+      </div>
+
+      <article class="letter-card">
+        <div class="letter-salutation">
+          <span>💌</span> Hai Cowok Hebatku (Bebeeeee),
+        </div>
+        <div class="letter-body">
+          <p>
+            Aku membuat halaman kecil ini khusus buat kamu. Di sela-sela rutinitas dan kesibukanmu, aku cuma mau mengingatkan betapa berartinya kehadiranmu di hidupku. Dari foto masa kecilmu yang masih polos makan kelapa, sampai hari ini kamu berdiri di sampingku sebagai laki-laki yang selalu kubanggakan.
+          </p>
+          <p class="letter-highlight">
+            “Terima kasih ya sudah selalu jadi cowok yang sabar menghadapi segala tingkah, cerewet, dan mood-ku. Terima kasih untuk kerja kerasmu, perhatian kecilmu, dan rasa aman yang selalu kamu berikan.”
+          </p>
+          <p>
+            Aku tahu, sebagai cowok kadang ada banyak beban, tanggung jawab, dan hal berat yang harus kamu pikirkan sendiri. Tapi tolong ingat ya sayang: di depanku, kamu nggak harus selalu kelihatan kuat atau tanpa cela. Kamu boleh lelah, kamu boleh bersandar di bahuku kapan pun kamu butuh (persis seperti foto kita di kebun teh!), dan kamu punya aku yang akan selalu ada di barisan terdepan untuk mendukungmu.
+          </p>
+          <p>
+            Semoga kita berdua bisa terus bertaut, saling belajar, saling menjaga, dan melangkah bersama menuju mimpi-mimpi kita. Tetaplah jadi cowok yang hangat, baik hati, dan luar biasa seperti yang kukenal ya.
+          </p>
+        </div>
+
+        <div class="letter-signature">
+          Selamanya bertaut denganmu,<br>
+          Dari cewekmu yang paling bangga memilikimu ♡
+        </div>
+
+        <!-- Secret Surprise Trigger -->
+        <div class="surprise-box">
+          <button class="btn primary" id="secretBtn" type="button">
+            <span>✨</span> Buka Kejutan Rahasia
+          </button>
+          <div class="secret-content" id="secretContent">
+            <h4>🎁 Bisikan Rahasia Khusus Buat Cowokku:</h4>
+            <p>
+              Kalau suatu hari nanti kamu lagi merasa capek, tertekan, atau ragu sama kemampuan dirimu, buka lagi halaman ini ya sayang. Lihat betapa berharga dan hebatnya kamu di mataku.
+            </p>
+            <p>
+              Kamu itu cowok luar biasa, pekerja keras, dan kamu pantas mendapatkan semua hal baik di dunia ini. Jangan pernah merasa berjuang sendirian, karena aku akan selalu ada di sini buat kamu. Satu peluk paling erat dan hangat khusus buat cowok kesayanganku hari ini! 🫂❤️
+            </p>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <!-- Section 5: Ending & Interactive Love Shower -->
+    <section class="ending-section" id="ending">
+      <div class="section-badge">✦ SELAMANYA BERSAMA ✦</div>
+      <h2>You are my favorite boy. ♡</h2>
+      <p>
+        Setiap detik bersamamu adalah cerita favoritku. Tekan tombol di bawah untuk kirim peluk hangat dan semangat buat cowok kesayanganku!
+      </p>
+
+      <div class="heart-button-wrapper">
+        <button class="btn-explode" id="loveExplodeBtn" type="button">
+          <span>💖</span> Kirim Banyak Peluk Buat Cowokku
+        </button>
+        <div class="love-counter" id="loveCounter" aria-live="polite"></div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Lightbox Modal for Full Screen Image Inspection -->
+  <div class="lightbox-modal" id="lightboxModal" onclick="closeLightbox(event)">
+    <div class="lightbox-content" onclick="event.stopPropagation()">
+      <button class="lightbox-close" onclick="closeLightbox()" title="Tutup">✕</button>
+      <img id="lightboxImg" src="" alt="Perbesar Foto">
+      <div class="lightbox-caption" id="lightboxCaption"></div>
+    </div>
+  </div>
+
+  <!-- QR Code Modal for Android Access -->
+  <!-- QR Code Modal for Android Access -->
+  <div class="qr-modal" id="qrModal" onclick="closeQrModal(event)">
+    <div class="qr-content" onclick="event.stopPropagation()">
+      <button class="lightbox-close" onclick="closeQrModal()" title="Tutup">✕</button>
+      <h3>📱 Link Spesial Buat Cowokmu</h3>
+      <p>Link ini bisa dibuka dari HP manapun, di kota manapun, pakai paket data/kuota tanpa perlu satu Wi-Fi:</p>
+      <div class="qr-box">
+        <img id="qrCodeImg" src="https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=https://litigation-specialists-cadillac-aging.trycloudflare.com" alt="QR Code Link HP">
+      </div>
+      <div class="qr-url-box">
+        <small>Tinggal kirim link ini ke WhatsApp cowokmu:</small>
+        <code id="qrCodeUrlText">https://litigation-specialists-cadillac-aging.trycloudflare.com</code>
+      </div>
+      <button class="btn primary" id="copyShareLinkBtn" onclick="copyShareLink()" type="button" style="margin-top: 12px; width: 100%; border-radius: 999px;">
+        📋 Salin Link WhatsApp
+      </button>
+    </div>
+  </div>
+
+  <!-- Audio Element for Optional Custom Audio File Upload -->
+  <audio id="customAudio" loop preload="none"></audio>
+
+  <!-- Footer -->
+  <footer>
+    <p>Dibuat dengan segenap cinta, khusus untuk pacar tersayang <span class="heart-glow">♡</span></p>
+    <small>Diiringi nada instrumental "Bertaut" oleh Nadin Amizah — Selamanya bertaut.</small>
+  </footer>
+
+  <!-- Web Audio Synthesizer: Instrumental "Bertaut - Nadin Amizah" & Interactivity -->
+  <script>
+    /* =====================================================================
+       1. AMBIENT CANVAS (Twinkling Stars & Floating Hearts Background)
+       ===================================================================== */
+    const canvas = document.getElementById('ambientCanvas');
+    const ctx = canvas.getContext('2d');
+    let width, height;
+    let particles = [];
+
+    function resizeCanvas() {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    class AmbientParticle {
+      constructor() {
+        this.reset();
+      }
+      reset() {
+        this.x = Math.random() * width;
+        this.y = Math.random() * height;
+        this.size = Math.random() * 2.8 + 1;
+        this.speedY = Math.random() * 0.4 + 0.15;
+        this.speedX = (Math.random() - 0.5) * 0.3;
+        this.alpha = Math.random() * 0.6 + 0.2;
+        this.isHeart = Math.random() > 0.6;
+        this.color = Math.random() > 0.4 ? 'rgba(255, 117, 143, ' : 'rgba(192, 132, 252, ';
+      }
+      update() {
+        this.y -= this.speedY;
+        this.x += this.speedX;
+        if (this.y < -20 || this.x < -20 || this.x > width + 20) {
+          this.y = height + 10;
+          this.x = Math.random() * width;
+        }
+      }
+      draw() {
+        ctx.save();
+        ctx.fillStyle = this.color + this.alpha + ')';
+        if (this.isHeart) {
+          // Draw mini heart
+          const s = this.size * 1.6;
+          ctx.beginPath();
+          ctx.moveTo(this.x, this.y);
+          ctx.bezierCurveTo(this.x - s / 2, this.y - s / 2, this.x - s, this.y + s / 3, this.x, this.y + s);
+          ctx.bezierCurveTo(this.x + s, this.y + s / 3, this.x + s / 2, this.y - s / 2, this.x, this.y);
+          ctx.fill();
+        } else {
+          // Draw soft twinkling star circle
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+          ctx.fill();
+        }
+        ctx.restore();
+      }
+    }
+
+    for (let i = 0; i < 48; i++) {
+      particles.push(new AmbientParticle());
+    }
+
+    function animateAmbient() {
+      ctx.clearRect(0, 0, width, height);
+      particles.forEach(p => {
+        p.update();
+        p.draw();
+      });
+      requestAnimationFrame(animateAmbient);
+    }
+    animateAmbient();
+
+    /* =====================================================================
+       2. INSTRUMENTAL PIANO: "BERTAUT - NADIN AMIZAH" (Web Audio API)
+       ===================================================================== */
+    let audioCtx = null;
+    let isPlaying = false;
+    let songTimeout = null;
+    let stepIndex = 0;
+
+    // Frequencies (C Key)
+    const N = {
+      A2: 110.00, B2: 123.47,
+      C3: 130.81, D3: 146.83, E3: 164.81, F3: 174.61, G3: 196.00, A3: 220.00, B3: 246.94,
+      C4: 261.63, D4: 293.66, E4: 329.63, F4: 349.23, G4: 392.00, A4: 440.00, B4: 493.88,
+      C5: 523.25, D5: 587.33, E5: 659.25, F5: 698.46, G5: 783.99, A5: 880.00, B5: 987.77,
+      C6: 1046.50
+    };
+
+    // Melody & Accompaniment arrangement for "Bertaut"
+    // Each step: [melodyFreq, chordFreqsArray, durationSec]
+    const bertautNotes = [
+      // INTRO (Warm Piano Arpeggios)
+      [null, [N.C3, N.G3, N.E4], 0.65],
+      [N.G4, [N.C4], 0.45],
+      [N.E4, [N.G3], 0.45],
+      [N.C4, [N.E3], 0.65],
+
+      [null, [N.F3, N.C4, N.A4], 0.65],
+      [N.A4, [N.F4], 0.45],
+      [N.C5, [N.C4], 0.45],
+      [N.A4, [N.F3], 0.65],
+
+      [null, [N.A2, N.E3, N.C4], 0.65],
+      [N.C4, [N.E4], 0.45],
+      [N.E4, [N.A3], 0.45],
+      [N.C4, [N.E3], 0.65],
+
+      [null, [N.F3, N.C4, N.A4], 0.65],
+      [N.A4, [N.F4], 0.45],
+      [N.G4, [N.C4], 0.55],
+      [N.E4, [N.G3], 0.65],
+
+      // VERSE: "Bun, hidup berjalan seperti bajingan..."
+      [N.C5, [N.C3, N.G3], 0.40],
+      [N.C5, [N.E4], 0.35],
+      [N.D5, [N.G4], 0.35],
+      [N.C5, [N.C4], 0.40],
+      [N.F5, [N.F3, N.C4], 0.45],
+      [N.E5, [N.A4], 0.45],
+      [N.C5, [N.F4], 0.35],
+      [N.D5, [N.C4], 0.35],
+      [N.C5, [N.A2, N.E3], 0.40],
+      [N.E5, [N.C4], 0.45],
+      [N.C5, [N.E4], 0.40],
+      [N.A4, [N.F3, N.C4], 0.70],
+
+      // "Seperti landak yang tak punya teman..."
+      [N.G4, [N.C3, N.G3], 0.35],
+      [N.C5, [N.E4], 0.35],
+      [N.C5, [N.G4], 0.35],
+      [N.B4, [N.C4], 0.35],
+      [N.C5, [N.F3, N.C4], 0.45],
+      [N.F5, [N.A4], 0.45],
+      [N.E5, [N.F4], 0.40],
+      [N.C5, [N.C4], 0.35],
+      [N.G4, [N.A2, N.E3], 0.45],
+      [N.E5, [N.C4, N.G4], 0.85],
+
+      // "Ia menggonggong bak suara hujan..."
+      [N.E5, [N.F3, N.C4], 0.35],
+      [N.F5, [N.A4], 0.35],
+      [N.E5, [N.C4], 0.35],
+      [N.F5, [N.F4], 0.35],
+      [N.E5, [N.C3, N.G3], 0.35],
+      [N.C5, [N.E4], 0.35],
+      [N.B4, [N.G4], 0.35],
+      [N.D5, [N.C4], 0.45],
+      [N.C5, [N.A2, N.E3], 0.75],
+
+      // "Dan kau pangeranku mengambil peran..."
+      [N.C5, [N.F3, N.C4], 0.35],
+      [N.C5, [N.A4], 0.35],
+      [N.B4, [N.F4], 0.35],
+      [N.A4, [N.C4], 0.35],
+      [N.C5, [N.C3, N.G3], 0.40],
+      [N.A4, [N.E4], 0.40],
+      [N.G4, [N.G3], 0.45],
+      [N.C5, [N.C4], 0.40],
+      [N.G4, [N.G3, N.C4], 0.90],
+
+      // PRE-CHORUS TRANSIENT PAUSE
+      [null, [N.F3, N.A3, N.C4], 0.80],
+
+      // CHORUS: "Keras kepalaku sama denganmu..."
+      [N.C5, [N.C3, N.G3, N.E4], 0.38],
+      [N.G5, [N.C4], 0.35],
+      [N.G5, [N.E4], 0.35],
+      [N.G5, [N.G4], 0.35],
+      [N.G5, [N.C4], 0.40],
+      [N.F5, [N.F3, N.C4], 0.35],
+      [N.E5, [N.A4], 0.35],
+      [N.D5, [N.F4], 0.35],
+      [N.C5, [N.C4], 0.75],
+
+      // "Caraku marah, caraku tersenyum..."
+      [N.C5, [N.A2, N.E3, N.C4], 0.38],
+      [N.G5, [N.E4], 0.35],
+      [N.G5, [N.A3], 0.35],
+      [N.G5, [N.C4], 0.35],
+      [N.G5, [N.E4], 0.40],
+      [N.F5, [N.F3, N.C4], 0.35],
+      [N.E5, [N.A4], 0.35],
+      [N.D5, [N.F4], 0.35],
+      [N.C5, [N.C4], 0.75],
+
+      // "Seperti detak jantung yang bertaut..."
+      [N.C5, [N.C3, N.G3], 0.38],
+      [N.G5, [N.E4], 0.35],
+      [N.A5, [N.F3, N.C4, N.A4], 0.40],
+      [N.A5, [N.F4], 0.35],
+      [N.A5, [N.C4], 0.35],
+      [N.A5, [N.A4], 0.35],
+      [N.G5, [N.C4], 0.35],
+      [N.F5, [N.A3], 0.35],
+      [N.D5, [N.F3], 0.40],
+      [N.C5, [N.C3, N.G3], 0.85],
+
+      // "Nyawaku nyala kar'na denganmu..."
+      [N.F5, [N.F3, N.C4], 0.38],
+      [N.A5, [N.A4], 0.38],
+      [N.A5, [N.F4], 0.35],
+      [N.A5, [N.C4], 0.35],
+      [N.A5, [N.A4], 0.40],
+      [N.G5, [N.C3, N.G3], 0.35],
+      [N.F5, [N.E4], 0.35],
+      [N.E5, [N.G4], 0.35],
+      [N.D5, [N.F3, N.A3], 0.50],
+      [N.C5, [N.C3, N.G3, N.E4, N.C5], 1.50],
+
+      // OUTRO CHORD RING
+      [null, [N.F3, N.C4, N.A4], 1.20]
+    ];
+
+    function createAcousticPianoTone(frequency, time, duration, isMelody = false) {
+      if (!audioCtx || !frequency || !isFinite(frequency) || isNaN(frequency)) return;
+
+      try {
+        const osc1 = audioCtx.createOscillator();
+        const osc2 = audioCtx.createOscillator();
+        const gainNode = audioCtx.createGain();
+        const filter = audioCtx.createBiquadFilter();
+
+        // Sound design: Warm acoustic Rhodes / Grand Piano simulation
+        osc1.type = 'sine';
+        osc1.frequency.setValueAtTime(frequency, time);
+
+        osc2.type = 'triangle';
+        osc2.frequency.setValueAtTime(frequency * (isMelody ? 2 : 1), time);
+
+        // Low pass filter mimics piano hammer strike
+        filter.type = 'lowpass';
+        filter.frequency.setValueAtTime(isMelody ? 2400 : 1600, time);
+        filter.frequency.exponentialRampToValueAtTime(320, time + duration);
+
+        // Volume Envelope: boosted for clear audibility on phones and laptops
+        const peakVol = isMelody ? 0.22 : 0.12;
+        gainNode.gain.setValueAtTime(0.0001, time);
+        gainNode.gain.exponentialRampToValueAtTime(peakVol, time + 0.02);
+        gainNode.gain.exponentialRampToValueAtTime(0.0001, time + duration + 0.35);
+
+        osc1.connect(filter);
+        osc2.connect(filter);
+        filter.connect(gainNode);
+        gainNode.connect(audioCtx.destination);
+
+        osc1.start(time);
+        osc2.start(time);
+        osc1.stop(time + duration + 0.4);
+        osc2.stop(time + duration + 0.4);
+      } catch (e) {
+        console.warn("Piano tone error:", e);
+      }
+    }
+
+    function playNextNote() {
+      if (!isPlaying || !audioCtx) return;
+
+      try {
+        const step = bertautNotes[stepIndex % bertautNotes.length];
+        const melodyFreq = step[0];
+        const chordFreqs = step[1];
+        const duration = step[2] || 0.5;
+        const now = audioCtx.currentTime;
+
+        // Play accompaniment chord notes
+        if (chordFreqs && chordFreqs.length > 0) {
+          chordFreqs.forEach((freq, i) => {
+            if (freq && isFinite(freq)) {
+              createAcousticPianoTone(freq, now + (i * 0.035), duration * 1.5, false);
+            }
+          });
+        }
+
+        // Play melody note
+        if (melodyFreq && isFinite(melodyFreq)) {
+          createAcousticPianoTone(melodyFreq, now, duration * 1.2, true);
+        }
+
+        stepIndex++;
+        songTimeout = setTimeout(playNextNote, duration * 1000);
+      } catch (err) {
+        console.error("Song step error:", err);
+        stepIndex++;
+        songTimeout = setTimeout(playNextNote, 500);
+      }
+    }
+
+    function startBertautMusic() {
+      const AudioCtxClass = window.AudioContext || window.webkitAudioContext;
+      if (!audioCtx) audioCtx = new AudioCtxClass();
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+
+      isPlaying = true;
+      stepIndex = 0;
+      updateMusicUI(true);
+      playNextNote();
+    }
+
+    function stopBertautMusic() {
+      isPlaying = false;
+      if (songTimeout) clearTimeout(songTimeout);
+      updateMusicUI(false);
+    }
+
+    const mp3Input = document.getElementById('mp3FileInput');
+    const customAudio = document.getElementById('customAudio');
+    let usingCustomAudio = false;
+
+    if (mp3Input) {
+      mp3Input.addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        if (file) {
+          const fileUrl = URL.createObjectURL(file);
+          customAudio.src = fileUrl;
+          usingCustomAudio = true;
+          stopBertautMusic();
+          customAudio.play().then(() => {
+            updateMusicUI(true);
+            document.getElementById('musicStatus').textContent = `♫ Memutar file: ${file.name} ♡`;
+          }).catch(() => {
+            document.getElementById('musicStatus').textContent = 'Klik tombol Play untuk memulai audio.';
+          });
+        }
+      });
+    }
+
+    customAudio.addEventListener('ended', () => {
+      updateMusicUI(false);
+    });
+
+    function toggleMusic() {
+      if (usingCustomAudio) {
+        if (customAudio.paused) {
+          customAudio.play();
+          updateMusicUI(true);
+        } else {
+          customAudio.pause();
+          updateMusicUI(false);
+        }
+        return;
+      }
+
+      if (isPlaying) {
+        stopBertautMusic();
+      } else {
+        startBertautMusic();
+      }
+    }
+
+    function updateMusicUI(active) {
+      const mainDisc = document.getElementById('mainDisc');
+      const navDisc = document.getElementById('navDisc');
+      const playToggleBtn = document.getElementById('playToggleBtn');
+      const soundwave = document.getElementById('soundwave');
+      const musicStatus = document.getElementById('musicStatus');
+      const navMusicText = document.getElementById('navMusicText');
+
+      if (active) {
+        mainDisc.classList.add('playing');
+        navDisc.classList.add('playing');
+        soundwave.classList.add('active');
+        playToggleBtn.textContent = '⏸';
+        musicStatus.textContent = usingCustomAudio ? musicStatus.textContent : '♫ Sedang memainkan alunan piano Bertaut ♡';
+        navMusicText.textContent = '⏸ Jeda Bertaut';
+      } else {
+        mainDisc.classList.remove('playing');
+        navDisc.classList.remove('playing');
+        soundwave.classList.remove('active');
+        playToggleBtn.textContent = '▶';
+        musicStatus.textContent = 'Musik dijeda. Klik tombol untuk memutar kembali.';
+        navMusicText.textContent = '♫ Putar Bertaut';
+      }
+    }
+
+    // Attach music triggers
+    document.getElementById('playToggleBtn').addEventListener('click', toggleMusic);
+    document.getElementById('navMusicToggle').addEventListener('click', toggleMusic);
+    document.getElementById('heroPlayBtn').addEventListener('click', () => {
+      if (usingCustomAudio) {
+        customAudio.play();
+        updateMusicUI(true);
+      } else if (!isPlaying) {
+        startBertautMusic();
+      }
+      document.querySelector('.music-dock').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    });
+
+    // Auto pause on tab hidden to be gentle
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) {
+        if (usingCustomAudio && !customAudio.paused) {
+          customAudio.pause();
+          updateMusicUI(false);
+        } else if (isPlaying) {
+          stopBertautMusic();
+        }
+      }
+    });
+
+    /* =====================================================================
+       3. SECRET SURPRISE ACCORDION
+       ===================================================================== */
+    const secretBtn = document.getElementById('secretBtn');
+    const secretContent = document.getElementById('secretContent');
+
+    secretBtn.addEventListener('click', () => {
+      const isOpen = secretContent.classList.toggle('open');
+      secretBtn.innerHTML = isOpen ? '<span>♡</span> Tutup Surat Rahasia' : '<span>✨</span> Buka Kejutan Rahasia';
+    });
+
+    /* =====================================================================
+       4. INTERACTIVE HEART EXPLOSION ("Kirim Banyak Hati")
+       ===================================================================== */
+    let loveCount = 0;
+    const loveMessages = [
+      "Peluk hangat paling erat buat cowok hebatku! 🫂",
+      "Semangat terus ya sayang, aku selalu bangga banget punya kamu! ✨",
+      "Kamu itu ganteng banget, apalagi kalau lagi senyum manis! 😊",
+      "Terima kasih sudah selalu sabar dan jagain aku ya, Bebeeeee! 🌸",
+      "Detak jantung kita akan selalu bertaut, sekarang dan selamanya. 💖",
+      "Seribu peluk virtual khusus buat cowok kesayanganku! 🧸",
+      "I love you so much, my favorite boy! Selamanya untukmu ♡"
+    ];
+
+    document.getElementById('loveExplodeBtn').addEventListener('click', (e) => {
+      loveCount++;
+      const msgIndex = (loveCount - 1) % loveMessages.length;
+      const counterEl = document.getElementById('loveCounter');
+      counterEl.textContent = `[${loveCount} Cinta Terkirim] ${loveMessages[msgIndex]}`;
+      counterEl.style.transform = 'scale(1.05)';
+      setTimeout(() => { counterEl.style.transform = 'scale(1)'; }, 200);
+
+      // Create burst of flying DOM hearts from button
+      createHeartBurst(e.clientX || window.innerWidth / 2, e.clientY || window.innerHeight / 2);
+    });
+
+    function createHeartBurst(originX, originY) {
+      const hearts = ['💖', '💕', '💗', '💓', '✨', '🌸', '🧸', '💐'];
+      for (let i = 0; i < 20; i++) {
+        const span = document.createElement('span');
+        span.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+        span.style.position = 'fixed';
+        span.style.left = `${originX}px`;
+        span.style.top = `${originY}px`;
+        span.style.fontSize = `${Math.random() * 20 + 16}px`;
+        span.style.pointerEvents = 'none';
+        span.style.zIndex = '3000';
+        span.style.transition = 'all 1s cubic-bezier(0.1, 0.8, 0.3, 1)';
+        document.body.appendChild(span);
+
+        const angle = Math.random() * Math.PI * 2;
+        const dist = Math.random() * 180 + 50;
+        const destX = originX + Math.cos(angle) * dist;
+        const destY = originY + Math.sin(angle) * dist - 60;
+
+        requestAnimationFrame(() => {
+          span.style.transform = `translate(${destX - originX}px, ${destY - originY}px) scale(0)`;
+          span.style.opacity = '0';
+        });
+
+        setTimeout(() => { span.remove(); }, 1050);
+      }
+    }
+
+    /* =====================================================================
+       5. FULLSCREEN LIGHTBOX MODAL
+       ===================================================================== */
+    const lightboxModal = document.getElementById('lightboxModal');
+    const lightboxImg = document.getElementById('lightboxImg');
+    const lightboxCaption = document.getElementById('lightboxCaption');
+
+    window.openLightbox = function (src, caption) {
+      lightboxImg.src = src;
+      lightboxCaption.textContent = caption || 'Kenangan Spesial Bersama Sayang ♡';
+      lightboxModal.classList.add('active');
+    };
+
+    /* =====================================================================
+       6. MOBILE QR CODE MODAL
+       ===================================================================== */
+    const qrModal = document.getElementById('qrModal');
+
+    window.openQrModal = function () {
+      const isTunnel = window.location.hostname.includes('trycloudflare.com');
+      const shareUrl = isTunnel ? window.location.origin : 'https://litigation-specialists-cadillac-aging.trycloudflare.com';
+      const qrImg = document.getElementById('qrCodeImg');
+      const qrText = document.getElementById('qrCodeUrlText');
+      if (qrImg) qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=${encodeURIComponent(shareUrl)}`;
+      if (qrText) qrText.textContent = shareUrl;
+      qrModal.classList.add('active');
+    };
+
+    window.copyShareLink = function () {
+      const qrText = document.getElementById('qrCodeUrlText');
+      const liveUrl = (qrText && qrText.textContent.trim()) ? qrText.textContent.trim() : 'https://litigation-specialists-cadillac-aging.trycloudflare.com';
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(liveUrl).then(() => {
+          alert('Link berhasil disalin! Tinggal kamu kirimkan ke WhatsApp cowokmu ya ♡\n\n' + liveUrl);
+        }).catch(() => {
+          prompt('Salin link ini untuk cowokmu:', liveUrl);
+        });
+      } else {
+        prompt('Salin link ini untuk cowokmu:', liveUrl);
+      }
+    };
+
+    window.closeQrModal = function (event) {
+      if (event && event.target !== qrModal && !event.target.classList.contains('lightbox-close')) return;
+      qrModal.classList.remove('active');
+    };
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        if (lightboxModal.classList.contains('active')) lightboxModal.classList.remove('active');
+        if (qrModal.classList.contains('active')) qrModal.classList.remove('active');
+      }
+    });
+  </script>
+</body>
+
+</html>
